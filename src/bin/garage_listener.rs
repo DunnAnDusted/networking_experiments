@@ -1,6 +1,6 @@
 use std::{io, net::{UdpSocket, Ipv4Addr}};
 
-pub fn listen() -> io::Result<()> {
+pub fn main() -> io::Result<()> {
     static  IP_MULTI: Ipv4Addr = Ipv4Addr::new(224, 192, 32, 29);
     let listener = UdpSocket::bind((Ipv4Addr::UNSPECIFIED, 22600))?;
     listener.join_multicast_v4(&IP_MULTI, &Ipv4Addr::UNSPECIFIED)?;

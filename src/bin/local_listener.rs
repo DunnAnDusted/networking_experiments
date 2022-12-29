@@ -4,7 +4,7 @@ use std::{
     process::Command,
 };
 
-pub fn listen() -> io::Result<()> {
+pub fn main() -> io::Result<()> {
     let mut buff = [0; 1024];
 
     let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 7878))?;
