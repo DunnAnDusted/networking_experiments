@@ -19,8 +19,7 @@ pub fn listen() -> io::Result<()> {
                 
         };
         
-        let buff = buff[..size].to_owned();
-        let buff = String::from_utf8(buff).expect("unexpected malformed characters");
+        let buff = String::from_utf8_lossy(&buff[..size]);
         
         println!("\x1B[2J\x1B[1;1HSize: {size:?}\nContents: {buff:?}");
     }
