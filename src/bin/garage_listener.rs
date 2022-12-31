@@ -1,11 +1,14 @@
-use std::{io, net::{UdpSocket, Ipv4Addr}};
+use std::{io, net::{UdpSocket, Ipv4Addr}, time::Duration};
 
 pub fn main() -> io::Result<()> {
-    static  IP_MULTI: Ipv4Addr = Ipv4Addr::new(224, 192, 32, 29);
-    let listener = UdpSocket::bind((Ipv4Addr::UNSPECIFIED, 22600))?;
-    listener.join_multicast_v4(&IP_MULTI, &Ipv4Addr::UNSPECIFIED)?;
+    static IP_MULTI: Ipv4Addr = Ipv4Addr::new(224, 192, 32, 29);
+    const TIMEOUT: Duration = Duration::from_secs(2);
 
     let mut buff = [0; 256];
+    let listener = UdpSocket::bind((Ipv4Addr::UNSPECIFIED, 22600))?;
+
+    listener.join_multicast_v4(&IP_MULTI, &Ipv4Addr::UNSPECIFIED)?;
+    listener.set_read_timeout(Some(TIMEOUT))?;
 
     loop {
         let size = loop {
