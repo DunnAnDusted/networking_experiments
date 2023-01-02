@@ -6,8 +6,8 @@ use std::{
 
 pub fn main() -> io::Result<()> {
     let mut buff = [0; 1024];
-
     let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 7878))?;
+
     Command::new("curl")
         .arg("http://127.0.0.1:7878")
         .arg("--http0.9")

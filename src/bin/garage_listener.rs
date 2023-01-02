@@ -1,4 +1,8 @@
-use std::{io, net::{UdpSocket, Ipv4Addr}, time::Duration};
+use std::{
+    io,
+    net::{Ipv4Addr, UdpSocket},
+    time::Duration,
+};
 
 pub fn main() -> io::Result<()> {
     static IP_MULTI: Ipv4Addr = Ipv4Addr::new(224, 192, 32, 29);
@@ -13,17 +17,16 @@ pub fn main() -> io::Result<()> {
     loop {
         let size = loop {
             let size = listener.recv(&mut buff)?;
-        
+
             match (size, buff) {
                 (3, [71, 61, _x @ 48..=51, ..]) => break size, // Read expected data
-                (0, _) => return Ok(()), // Socket has closed
-                _ => continue, // Unexpected data
+                (0, _) => return Ok(()),                       // Socket has closed
+                _ => continue,                                 // Unexpected data
             }
-                
         };
-        
+
         let buff = String::from_utf8_lossy(&buff[..size]);
-        
+
         println!("\x1B[2J\x1B[1;1HSize: {size:?}\nContents: {buff:?}");
     }
 }
