@@ -20,10 +20,7 @@ pub fn main() -> io::Result<()> {
             .recv_from(&mut buff)
             .map(|(size, addr)| (size, addr, buff))
     })
-    .take_while(|x| {
-        x.as_ref()
-            .map_or(true, |y| matches!(y, (3, _, [71, 61, _x @ 48..=51, ..])))
-    })
+    .take_while(|x| !matches!(x, Ok((0, ..))))
     .try_for_each(|x| {
         x.map(|(size, addr, buff)| {
             let buff = String::from_utf8_lossy(&buff[..size]);
