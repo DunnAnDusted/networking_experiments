@@ -21,6 +21,7 @@ pub fn main() -> io::Result<()> {
             .map(|(size, addr)| (size, addr, buff))
     })
     .take_while(|x| !matches!(x, Ok((0, ..))))
+    .filter(|x| matches!(x, Err(_) | Ok((3, _, [71, 61, 48..=51, ..]))))
     .try_for_each(|x| {
         x.map(|(size, addr, buff)| {
             let buff = String::from_utf8_lossy(&buff[..size]);
