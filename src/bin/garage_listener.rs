@@ -5,12 +5,12 @@ use std::{
 };
 
 pub fn main() -> io::Result<()> {
-    static IP_MULTI: Ipv4Addr = Ipv4Addr::new(224, 192, 32, 29);
+    static MULTICAST_ADDRESS: Ipv4Addr = Ipv4Addr::new(224, 192, 32, 29);
+    const SOCKET_PORT: u16 = 22600;
     const TIMEOUT: Duration = Duration::from_secs(2);
+    let sock = UdpSocket::bind((Ipv4Addr::UNSPECIFIED, SOCKET_PORT))?;
 
-    let sock = UdpSocket::bind((Ipv4Addr::UNSPECIFIED, 22600))?;
-
-    sock.join_multicast_v4(&IP_MULTI, &Ipv4Addr::UNSPECIFIED)?;
+    sock.join_multicast_v4(&MULTICAST_ADDRESS, &Ipv4Addr::UNSPECIFIED)?;
     sock.set_read_timeout(Some(TIMEOUT))?;
 
     iter::from_fn(|| {
