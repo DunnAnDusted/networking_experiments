@@ -15,8 +15,8 @@ pub fn main() -> io::Result<()> {
         .arg("-i")
         .spawn()?;
 
-    let (mut stream, ip) = listener.accept()?;
 
+    let (mut stream, ip) = listener.accept()?;
     let size = stream.read(&mut buff)?;
     let buff = String::from_utf8_lossy(&buff[..size]);
 
