@@ -21,9 +21,9 @@ pub fn main() -> io::Result<()> {
     let buff = String::from_utf8_lossy(&buff[..size]);
 
     println!(
-        "IP: {ip:?}\n\
-        Size: {size:?}\n\
-        Contents: {buff:?}"
+        "IP: {ip}\n\
+        Size: {size}\n\
+        Contents: {buff:?}\n"
     );
 
     // Hard-coded response, because the program
