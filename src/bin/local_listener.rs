@@ -18,7 +18,11 @@ pub fn main() -> io::Result<()> {
     let size = stream.read(&mut buff)?;
     let buff = String::from_utf8_lossy(&buff[..size]);
 
-    println!("IP: {ip:?}\nSize: {size:?}\nContents: {buff:?}");
+    println!(
+        "IP: {ip:?}\n\
+        Size: {size:?}\n\
+        Contents: {buff:?}"
+    );
 
     const RESPONSE: &[u8] = b"HTTP/1.1 405 Method Not Allowed\r\n\
         Allow:\r\n\
