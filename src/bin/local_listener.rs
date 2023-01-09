@@ -10,7 +10,7 @@ pub fn main() -> io::Result<()> {
 
     Command::new("curl")
         .arg("http://127.0.0.1:7878")
-        .arg("--http0.9")
+        .arg("-i")
         .spawn()?;
 
     let (mut stream, ip) = listener.accept()?;
