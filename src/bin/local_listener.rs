@@ -20,8 +20,9 @@ pub fn main() -> io::Result<()> {
 
     println!("IP: {ip:?}\nSize: {size:?}\nContents: {buff:?}");
 
-    const RESPONSE: &[u8] =
-        b"HTTPS/1.1 405 Method Not Allowed\r\nServer: The-Rust-Machine\r\nAllow:\r\n";
+    const RESPONSE: &[u8] = b"HTTP/1.1 405 Method Not Allowed\r\n\
+        Allow:\r\n\
+        Content-Length: 0\r\n\r\n";
 
     stream.write(RESPONSE)?;
     stream.flush()
